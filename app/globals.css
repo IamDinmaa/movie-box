@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+:root {
+  --background-color-dark: rgb(2 6 23);
+  color: white;
+}
+
+body {
+  background-color: var(--background-color-dark);
+  color: white;
+  transition: background-color 0.5s, color 0.5s;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+/* Hide both vertical and horizontal scrollbars */
+.scrollable-container::-webkit-scrollbar {
+  display: none; /* Hide the scrollbar */
+}
+
+/* For Chrome and Safari */
+.scrollable-container::-webkit-scrollbar-thumb {
+  display: none; /* Hide the thumb */
+}
+
+/* For Firefox */
+.scrollable-container {
+  scrollbar-width: none;
+}
+
+/* For Firefox */
+.scrollable-container::-webkit-scrollbar-thumb {
+  display: none; /* Hide the thumb */
+}
