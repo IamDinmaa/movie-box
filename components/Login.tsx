@@ -1,18 +1,26 @@
 "use client";
-import app from "@/app/Firebase";
+import React from "react";
+import app from "@/utils/Firebase";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import React, { useState } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
+import Link from "next/link";
 import * as Yup from "yup";
+import { useRouter } from "next/navigation";
+
 function SignIn() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const SignIn = () => {
+  const router = useRouter();
+  const SignIn = (email: string, password: string) => {
     const auth = getAuth(app);
     signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        console.log(user);
+      .then((userDetails) => {
+        const { user } = userDetails; //const user = userDetails.user;
+        const storedUserDetails = JSON.stringify({
+          id: user.uid,
+          photoURL:
+            "https://firebasestorage.googleapis.com/v0/b/entertainment-web-app-7cfba.appspot.com/o/about15.png?alt=media&token=1cbb9a8d-da06-4037-b2b4-ef6948739470&_gl=1*aboxdu*_ga*MzcyMzUxODM3LjE2OTQ2Nzk5OTE.*_ga_CW55HF8NVT*MTY5ODY3MzU4Mi4xNC4xLjE2OTg2NzM3MDYuNjAuMC4w",
+        });
+        localStorage.setItem("user", storedUserDetails);
+        router.push("./");
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -32,11 +40,12 @@ function SignIn() {
           email: Yup.string()
             .email("Invalid email address")
             .required("Required"),
-          passWord: Yup.string().required("required"),
+          passWord: Yup.string().required("Required"),
         })}
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
             setSubmitting(false);
+            SignIn(values.email, values.passWord);
           }, 400);
         }}>
         <Form className="flex flex-col items-center mt-12">
@@ -53,14 +62,11 @@ function SignIn() {
             className="bg-slate-800 mb-4 w-96 p-8"
           />{" "}
           <ErrorMessage name="passWord" />
-          <button
-            type="submit"
-            className="bg-slate-600 w-40 h-10 mb-2"
-            onClick={SignIn}>
-            Submit
+          <button type="submit" className="bg-slate-600 w-40 h-10 mb-2">
+            Login
           </button>{" "}
           <p>
-            New to Movie box? <a href="#">Sign Up</a>
+            New to Movie box? <Link href="/signup">Sign Up</Link>
           </p>
         </Form>
       </Formik>

@@ -1,21 +1,29 @@
 "use client";
-import app from "@/app/Firebase";
+import app from "@/utils/Firebase";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 import * as Yup from "yup";
 function SignUp() {
   const auth = getAuth(app);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const signUpToken = () => {
+  const router = useRouter();
+  const signUpToken = (email: string, password: string) => {
     createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
+      .then((userDetails) => {
         // Signed up
-        const user = userCredential.user;
-        console.log(user);
+
+        const { user } = userDetails;
+        const storedUserDetails = JSON.stringify({
+          id: user.uid,
+          photoURL:
+            "https://firebasestorage.googleapis.com/v0/b/entertainment-web-app-7cfba.appspot.com/o/about15.png?alt=media&token=1cbb9a8d-da06-4037-b2b4-ef6948739470&_gl=1*aboxdu*_ga*MzcyMzUxODM3LjE2OTQ2Nzk5OTE.*_ga_CW55HF8NVT*MTY5ODY3MzU4Mi4xNC4xLjE2OTg2NzM3MDYuNjAuMC4w",
+        });
+        localStorage.setItem("user", storedUserDetails);
+        console.log(user.uid);
         alert("successfully created an account");
+        router.push("/updateImage?type=1");
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -45,8 +53,7 @@ function SignUp() {
             .required("Required"),
           passWord: Yup.string()
             .matches(
-              /([a-zA-Z]+)([0-9]+)([!@#$%^&*()_+{}\[\]:;<>,.?~=-]+)/,
-
+              /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9])/,
               "Must contain alphabets, numbers and special characters"
             )
             .required("Required"),
@@ -54,11 +61,11 @@ function SignUp() {
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
             setSubmitting(false);
+            signUpToken(values.email, values.passWord);
           }, 400);
         }}>
         <Form className="flex flex-col items-center mt-12">
           <h2 className="text-xl font-bold mb-3">Sign Up</h2>
-
           <Field
             name="firstName"
             type="text"
@@ -90,7 +97,8 @@ function SignUp() {
             Submit
           </button>
           <p>
-            Already have an account with Movie box? <a href="#">Sign In</a>
+            Already have an account with Movie box?{" "}
+            <Link href="/login">Sign In</Link>
           </p>
         </Form>
       </Formik>
