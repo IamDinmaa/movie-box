@@ -4,11 +4,11 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { collection, addDoc } from "firebase/firestore";
 import app, { db } from "@/utils/Firebase";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { userDetails } from "@/app/types";
-const storage = getStorage(app);
+import { userDetail } from "@/app/types";
 
+const storage = getStorage(app);
 function ImageUpload(): React.JSX.Element {
-  const [userDetails, setuserDetails] = useState<userDetails>({
+  const [userDetails, setuserDetails] = useState<userDetail>({
     id: "",
     photoURL: "",
   });
@@ -28,18 +28,15 @@ function ImageUpload(): React.JSX.Element {
       setButtonName("Cancel");
     }
   }, []);
-
   async function uploadImage(file: File | null) {
     const fileRef = ref(storage, `sign-in/${file!.name}`);
     setLoading(true);
     const snapshot = await uploadBytes(fileRef, file!); //uploads it
     const UploadedPhotoURL = await getDownloadURL(fileRef); //returns the url to me in my firebase
-
     await addDoc(collection(db, "users"), {
       photoURL: UploadedPhotoURL,
       id: userDetails.id,
     });
-
     console.log(UploadedPhotoURL);
     const user = JSON.stringify({
       id: userDetails.id,
@@ -47,17 +44,11 @@ function ImageUpload(): React.JSX.Element {
     });
     localStorage.setItem("user", user);
   }
-
   function getUserDetails() {
     const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      const user = JSON.parse(storedUser);
-      return user;
-    } else {
-      router.push("/login");
-    }
+    const user = JSON.parse(storedUser!);
+    return user;
   }
-
   function handleClick(redirect: boolean) {
     if (redirect) {
       router.push("./");
@@ -80,7 +71,7 @@ function ImageUpload(): React.JSX.Element {
         <h1 className="mt-4 text-xl">Upload your image</h1>
       </div>
       <img
-        src={userDetails.photoURL}
+        src={userDetails?.photoURL}
         alt=""
         className="rounded-full w-32 h-32 mt-6"
         style={{ border: "2px solid white" }}
