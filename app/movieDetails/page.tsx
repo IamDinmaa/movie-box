@@ -16,7 +16,7 @@ export default function movieDetails(): React.JSX.Element {
   return !authenticated ? (
     <></>
   ) : (
-    <Scaffold>
+    <Scaffold removeSearch = {true}   >
       <>
         <MovieDetails />
       </>

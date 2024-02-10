@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { BsBookmarkFill } from "react-icons/bs";
+import { BsBookmarkFill, BsEye } from "react-icons/bs";
 import { collection, addDoc } from "firebase/firestore";
 import { PiTelevisionFill } from "react-icons/pi";
 import { FaClapperboard } from "react-icons/fa6";
@@ -10,10 +10,24 @@ import { AiOutlineAppstore } from "react-icons/ai";
 import { useRouter } from "next/navigation";
 
 function Nav(): React.JSX.Element {
+  const state_prototype = {
+    "btn-home": false,
+    "btn-film": false,
+    "btn-television": false,
+    "btn-bookmark": false,
+  };
+
+  const [btnState, setBtnState] = useState(state_prototype);
   const [img, setImg] = useState();
   const router = useRouter();
   function handleClick() {
     router.push("/updateImage");
+  }
+  function activeState(e: any) {
+    const { id } = e.target;
+    console.log(id);
+
+    setBtnState({ ...state_prototype, [id]: true });
   }
   useEffect(() => {
     const userPhoto = getUserPhoto();
@@ -32,7 +46,7 @@ function Nav(): React.JSX.Element {
   }
 
   return (
-    <div className=" h-16 w-[94vw] lg:w-18 lg:h-[94vh] lg:top-5 bg-slate-900 rounded-lg lg:mt-4 ml-4 flex flex-row lg:flex-col justify-between items-center">
+    <div className="h-16 w-[94vw] lg:w-18 lg:h-[94vh] lg:top-5 bg-slate-900 rounded-lg lg:mt-4 ml-4 flex flex-row lg:flex-col justify-between items-center">
       <FaClapperboard
         style={{ width: "20px" }}
         className="mr-8 ml-2 lg:mt-4 lg:mb-4 lg:mr-0 lg:ml-0 w-12 text-red-700"
@@ -41,21 +55,37 @@ function Nav(): React.JSX.Element {
         <Link href="/">
           <AiOutlineAppstore
             style={{ width: "24px" }}
-            className="ml-4 lg:mt-4 lg:ml-0  w-12 text-slate-50"
+            className={`ml-4 lg:mt-4 lg:ml-0  w-12 text-slate-50 ${
+              btnState["btn-home"] && "bg-red-600"
+            }  `}
+            id="btn-home"
+            onClick={activeState}
           />
         </Link>
         <BiSolidFilm
           style={{ width: "20px" }}
-          className="ml-4 lg:mt-4  lg:ml-0 w-12 text-gray-400"
+          className={`ml-4 lg:mt-4  lg:ml-0 w-12 text-gray-400 ${
+            btnState["btn-film"] && "bg-red-600"
+          }`}
+          id="btn-film"
+          onClick={activeState}
         />
         <PiTelevisionFill
           style={{ width: "20px" }}
-          className="ml-4 lg:mt-4  lg:ml-0 w-12  text-gray-400"
+          className={`ml-4 lg:mt-4  lg:ml-0 w-12  text-gray-400 ${
+            btnState["btn-television"] && "bg-red-600"
+          }`}
+          id="btn-television"
+          onClick={activeState}
         />
         <Link href="/bookmark">
           <BsBookmarkFill
             style={{ width: "20px" }}
-            className="ml-4 lg:mt-4  lg:ml-0 text-gray-400"
+            className={`ml-4 lg:mt-4  lg:ml-0 text-gray-400 ${
+              btnState["btn-bookmark"] && "bg-red-600"
+            }`}
+            id="btn-bookmark"
+            onClick={activeState}
           />
         </Link>
       </div>

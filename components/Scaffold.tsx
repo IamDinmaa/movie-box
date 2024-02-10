@@ -1,20 +1,22 @@
 import Search from "@/components/Search";
 import Nav from "@/components/Nav";
+import { scaffoldType } from "@/app/types";
 
 export default function Scaffold({
   children,
-}: {
-  children: React.JSX.Element;
-}): React.JSX.Element {
+  removeSearch,
+}: scaffoldType): React.JSX.Element {
   return (
     <div className="grid grid-rows-[7%_90%] lg:grid-cols-[7%_90%] gap-2">
       <div>
         <Nav />
       </div>
       <div>
-        <Search />
+        {!removeSearch && <Search />}
         <div
-          className="mt-16 scrollable-container"
+          className={` ${
+            !removeSearch ? "mt-16" : "mt-3"
+          } scrollable-container`}
           style={{
             overflowY: "scroll",
             height: "100vh",
