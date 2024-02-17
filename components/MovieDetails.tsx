@@ -19,7 +19,7 @@ function MovieDetails() {
         <div
           className="w-full h-[60%]   flex justify-center"
           onClick={handleVideoClick}>
-          <video src={url} className="w-[100%] h-[100%] " />
+          <video src={url} className="w-[100%] h-[100%] " controls />
         </div>
         <div className="flex justify-between py-2 h-[40%] ">
           <div className=" w-[100vw]">

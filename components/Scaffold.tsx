@@ -5,22 +5,19 @@ import { scaffoldType } from "@/app/types";
 export default function Scaffold({
   children,
   removeSearch,
+  activeIcon,
 }: scaffoldType): React.JSX.Element {
   return (
     <div className="grid grid-rows-[7%_90%] lg:grid-cols-[7%_90%] gap-2">
       <div>
-        <Nav />
+        <Nav activeIcon={activeIcon} />
       </div>
       <div>
         {!removeSearch && <Search />}
         <div
           className={` ${
-            !removeSearch ? "mt-16" : "mt-3"
-          } scrollable-container`}
-          style={{
-            overflowY: "scroll",
-            height: "100vh",
-          }}>
+            !removeSearch ? "mt-16" : "mt-3 "
+          } scrollable-container overflow-y-scroll h-[100vh] `}>
           {children}
         </div>
       </div>

@@ -8,8 +8,13 @@ import { FaClapperboard } from "react-icons/fa6";
 import { BiSolidFilm } from "react-icons/bi";
 import { AiOutlineAppstore } from "react-icons/ai";
 import { useRouter } from "next/navigation";
+import { activeIconType } from "@/app/types";
 
-function Nav(): React.JSX.Element {
+function Nav({
+  activeIcon,
+}: {
+  activeIcon?: activeIconType;
+}): React.JSX.Element {
   const state_prototype = {
     "btn-home": false,
     "btn-film": false,
@@ -17,16 +22,13 @@ function Nav(): React.JSX.Element {
     "btn-bookmark": false,
   };
 
-  const [btnState, setBtnState] = useState(state_prototype);
+  const [btnState, setBtnState] = useState(activeIcon || state_prototype);
   const [img, setImg] = useState();
   const router = useRouter();
   function handleClick() {
     router.push("/updateImage");
   }
-  function activeState(e: any) {
-    const { id } = e.target;
-    console.log(id);
-
+  function activeState(id: string) {
     setBtnState({ ...state_prototype, [id]: true });
   }
   useEffect(() => {
@@ -47,47 +49,50 @@ function Nav(): React.JSX.Element {
 
   return (
     <div className="h-16 w-[94vw] lg:w-18 lg:h-[94vh] lg:top-5 bg-slate-900 rounded-lg lg:mt-4 ml-4 flex flex-row lg:flex-col justify-between items-center">
-      <FaClapperboard
-        style={{ width: "20px" }}
-        className="mr-8 ml-2 lg:mt-4 lg:mb-4 lg:mr-0 lg:ml-0 w-12 text-red-700"
-      />
+      <div>
+        <FaClapperboard
+          style={{ width: "20px" }}
+          className="mr-8 ml-2 lg:mt-4 lg:mb-4 lg:mr-0 lg:ml-0 w-12 text-red-700"
+        />
+      </div>
+
       <div className="flex flex-row lg:flex-col items-center">
         <Link href="/">
           <AiOutlineAppstore
+            onClick={() => activeState("btn-home")}
             style={{ width: "24px" }}
-            className={`ml-4 lg:mt-4 lg:ml-0  w-12 text-slate-50 ${
-              btnState["btn-home"] && "bg-red-600"
-            }  `}
-            id="btn-home"
-            onClick={activeState}
+            color={`${btnState["btn-home"] ? "red" : ""}`}
+            className={`ml-4 lg:mt-4 lg:ml-0  w-12 text-slate-5 `}
           />
         </Link>
-        <BiSolidFilm
-          style={{ width: "20px" }}
-          className={`ml-4 lg:mt-4  lg:ml-0 w-12 text-gray-400 ${
-            btnState["btn-film"] && "bg-red-600"
-          }`}
-          id="btn-film"
-          onClick={activeState}
-        />
-        <PiTelevisionFill
-          style={{ width: "20px" }}
-          className={`ml-4 lg:mt-4  lg:ml-0 w-12  text-gray-400 ${
-            btnState["btn-television"] && "bg-red-600"
-          }`}
-          id="btn-television"
-          onClick={activeState}
-        />
-        <Link href="/bookmark">
-          <BsBookmarkFill
+        <div>
+          <BiSolidFilm
+            onClick={() => activeState("btn-film")}
             style={{ width: "20px" }}
-            className={`ml-4 lg:mt-4  lg:ml-0 text-gray-400 ${
-              btnState["btn-bookmark"] && "bg-red-600"
-            }`}
-            id="btn-bookmark"
-            onClick={activeState}
+            color={`${btnState["btn-film"] ? "red" : ""}`}
+            className={`ml-4 lg:mt-4  lg:ml-0 w-12 text-gray-400 `}
           />
-        </Link>
+        </div>
+
+        <div>
+          <PiTelevisionFill
+            onClick={() => activeState("btn-television")}
+            style={{ width: "20px" }}
+            color={`${btnState["btn-television"] ? "red" : ""}`}
+            className={`ml-4 lg:mt-4  lg:ml-0 w-12  text-gray-400`}
+          />
+        </div>
+
+        <div>
+          <Link href="/bookmark">
+            <BsBookmarkFill
+              onClick={() => activeState("btn-bookmark")}
+              style={{ width: "20px" }}
+              color={`${btnState["btn-bookmark"] ? "red" : ""}`}
+              className={`ml-4 lg:mt-4  lg:ml-0 text-gray-400 `}
+            />
+          </Link>
+        </div>
       </div>
       <div
         onClick={handleClick}

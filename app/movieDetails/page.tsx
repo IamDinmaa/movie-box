@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 
 export default function movieDetails(): React.JSX.Element {
   const [authenticated, setAuthenticated] = useState(false);
+
   const router = useRouter();
   useEffect(() => {
     if (authenticate_user(router)) {
@@ -16,7 +17,7 @@ export default function movieDetails(): React.JSX.Element {
   return !authenticated ? (
     <></>
   ) : (
-    <Scaffold removeSearch = {true}   >
+    <Scaffold removeSearch={true}>
       <>
         <MovieDetails />
       </>
