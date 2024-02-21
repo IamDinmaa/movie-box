@@ -8,7 +8,7 @@ import { FaClapperboard } from "react-icons/fa6";
 import { BiSolidFilm } from "react-icons/bi";
 import { AiOutlineAppstore } from "react-icons/ai";
 import { useRouter } from "next/navigation";
-import { activeIconType } from "@/app/types";
+import { activeIconType } from "@/types";
 
 function Nav({
   activeIcon,

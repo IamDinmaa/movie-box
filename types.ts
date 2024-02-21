@@ -9,8 +9,18 @@ export type activeIconType = {
   "btn-television": boolean;
   "btn-bookmark": boolean;
 };
+
+export type searchType = {
+  onSearch?: (e: any) => void;
+};
+
+export type videoType = {
+  id: number;
+  src: string;
+};
 export type scaffoldType = {
   children: React.JSX.Element;
   removeSearch?: boolean;
   activeIcon?: activeIconType;
+  activateSearch?: (e: any) => void;
 };

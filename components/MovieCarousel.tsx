@@ -2,6 +2,8 @@
 import { Photo } from "pexels";
 import { BiSolidFilm } from "react-icons/bi";
 import { BsBookmarkFill } from "react-icons/bs";
+import { useRouter } from "next/navigation";
+
 function MovieCarousel({
   heading,
   photos,
@@ -9,6 +11,11 @@ function MovieCarousel({
   heading: string;
   photos: Photo[];
 }) {
+  const router = useRouter();
+  function handleClick(query: string | null) {
+    router.push(`/movieDetails?query=${query}`);
+  }
+
   return (
     <div>
       {heading && <h2 className="ml-4">{heading}</h2>}
@@ -18,6 +25,7 @@ function MovieCarousel({
           photos.map((photo) => (
             <div
               id={String(photo.id)}
+              onClick={() => handleClick(photo.alt)}
               className="ml-4 mr-2 text-slate-100 relative">
               <div className="rounded-lg w-[400px] h-[200px] ">
                 <img

@@ -4,7 +4,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { collection, addDoc } from "firebase/firestore";
 import app, { db } from "@/utils/Firebase";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { userDetail } from "@/app/types";
+import { userDetail } from "@/types";
 
 const storage = getStorage(app);
 function ImageUpload(): React.JSX.Element {
