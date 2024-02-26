@@ -17,6 +17,8 @@ export type searchType = {
 export type videoType = {
   id: number;
   src: string;
+  cast: string;
+  name: string | undefined;
 };
 export type scaffoldType = {
   children: React.JSX.Element;

@@ -14,6 +14,8 @@ async function fetch_videos(
   const video: videoType = {
     id: videos[0].id,
     src: videos[0].video_files[0].link,
+    cast: videos[0].user.name,
+    name: "",
   };
   return video;
 }

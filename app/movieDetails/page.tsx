@@ -15,17 +15,17 @@ export default function movieDetails(): React.JSX.Element {
   const [video, setVideo] = useState<videoType>({
     id: 0,
     src: "",
+    cast: "",
+    name: "",
   });
-
   const router = useRouter();
   useEffect(() => {
     if (authenticate_user(router)) {
       setAuthenticated(true);
       const query = params.get("query") || undefined;
-
       (async () => {
         const getVideo = await fetch_videos(query);
-        setVideo(getVideo);
+        setVideo({ ...getVideo, name: query });
       })();
     }
   }, []);

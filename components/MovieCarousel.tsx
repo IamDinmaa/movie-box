@@ -17,23 +17,21 @@ function MovieCarousel({
   }
 
   return (
-    <div>
+    <div className="h-60">
       {heading && <h2 className="ml-4">{heading}</h2>}
-
       <div className="flex scrollable-container overflow-x-scroll w-[90vw] mr-8">
         {photos &&
           photos.map((photo) => (
             <div
               id={String(photo.id)}
               onClick={() => handleClick(photo.alt)}
-              className="ml-4 mr-2 text-slate-100 relative">
+              className="ml-4 mr-2 text-slate-100 relative ">
               <div className="rounded-lg w-[400px] h-[200px] ">
                 <img
                   src={photo.src.large}
                   className=" rounded-lg w-[100%]  h-full"
                 />
               </div>
-
               <div className="absolute top-2 right-4 p-2 rounded-full bg-slate-500">
                 <BsBookmarkFill className=" text-slate-100 w-[20px]" />
               </div>

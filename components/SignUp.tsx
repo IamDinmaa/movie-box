@@ -13,7 +13,6 @@ function SignUp() {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userDetails) => {
         // Signed up
-
         const { user } = userDetails;
         const storedUserDetails = JSON.stringify({
           id: user.uid,
