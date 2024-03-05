@@ -32,7 +32,6 @@ export default function Home(): React.JSX.Element {
       })();
     }
   }, []);
-
   async function handle_search(e: any) {
     try {
       const regex = /^[a-zA-Z0-9!@#$%^&*()_+-=,.<>?;:'"[\]{}|\\/~` ]+$/;
@@ -54,8 +53,8 @@ export default function Home(): React.JSX.Element {
   return !authenticated ? (
     <></>
   ) : (
-    <Scaffold activeIcon={state_prototype} activateSearch={handle_search}>
-      <div className="mb-24">
+    <div className="mb-56">
+      <Scaffold activeIcon={state_prototype} activateSearch={handle_search}>
         {searchInitiated ? (
           data.length === 0 ? (
             <p>No movie found</p>
@@ -65,10 +64,12 @@ export default function Home(): React.JSX.Element {
         ) : (
           <>
             <MovieCarousel heading={"Trending"} photos={carouselPhotos} />
-            <MovieGrid heading={"Recommended For You"} photos={gridPhotos} />
+            <div className="mb-36 border-4 border-yellow-600">
+              <MovieGrid heading={"Recommended For You"} photos={gridPhotos} />
+            </div>
           </>
         )}
-      </div>
-    </Scaffold>
+      </Scaffold>
+    </div>
   );
 }

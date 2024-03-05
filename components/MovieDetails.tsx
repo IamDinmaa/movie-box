@@ -1,16 +1,14 @@
 "use client";
 import React from "react";
-import { Video } from "pexels";
 import { videoType } from "@/types";
 
 function MovieDetails({ videos }: { videos: videoType }) {
   return (
     <>
-      <div className=" h-[96vh]  overflow-hiddden">
+      <div className=" h-[96vh]  overflow-hiddden ">
         <div className="w-full h-[57.6vh] flex justify-center">
           <div id={String(videos.id)}>
             <video src={videos.src} className="w-[100%] h-[100%]" controls />
-
             <div className="flex justify-between py-2  h-[38.4vh] ">
               <div className=" w-[100%]">
                 <h1 className="font-extrabold text-2xl mx-6 mb-5 ">

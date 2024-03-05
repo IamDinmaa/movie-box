@@ -12,6 +12,9 @@ const config: Config = {
       width: {
         18: "72px",
       },
+      height: {
+        128: "700px",
+      },
     },
   },
   plugins: [],

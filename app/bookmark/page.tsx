@@ -3,7 +3,6 @@ import MovieGrid from "@/components/MovieGrid";
 import { Photo } from "pexels";
 import Scaffold from "@/components/Scaffold";
 import fetch_photos from "@/utils/FetchPhotos";
-
 import authenticate_user from "@/utils/AuthenticateUser";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
@@ -35,7 +34,7 @@ export default function Home(): React.JSX.Element {
     <></>
   ) : (
     <Scaffold activeIcon={state_prototype}>
-      <div className="mb-24">
+      <div className="mb-36">
         <MovieGrid heading={"BookMarked Movies"} photos={moviesPhotos} />
         <MovieGrid heading={"BookMarked Tv Series"} photos={tvSeriesPhotos} />
       </div>

@@ -13,25 +13,22 @@ function ImageUpload(): React.JSX.Element {
     photoURL: "",
   });
   const [photo, setPhoto] = useState<File | null>(null);
-  const [loading, setLoading] = useState(false);
   const [buttonName, setButtonName] = useState<string>();
   const router = useRouter();
   const params = useSearchParams();
 
   useEffect(() => {
-    const type = params.get("type") || "0";
+    const type = params.get("type") as string;
     const getDetails = getUserDetails();
     setuserDetails(getDetails);
-    if (parseInt(type) === 1) {
+    if (type === "1") {
       setButtonName("Skip");
     } else {
       setButtonName("Cancel");
     }
   }, []);
   async function uploadImage(file: File | null) {
-    const fileRef = ref(storage, `sign-in/${file!.name}`);
-    setLoading(true);
-    const snapshot = await uploadBytes(fileRef, file!); //uploads it
+    const fileRef = ref(storage, `sign-in/${file!.name}`); // stores every details about the photo
     const UploadedPhotoURL = await getDownloadURL(fileRef); //returns the url to me in my firebase
     await addDoc(collection(db, "users"), {
       photoURL: UploadedPhotoURL,
@@ -71,7 +68,7 @@ function ImageUpload(): React.JSX.Element {
         <h1 className="mt-4 text-xl">Upload your image</h1>
       </div>
       <img
-        src={userDetails?.photoURL}
+        src={userDetails.photoURL}
         alt=""
         className="rounded-full w-32 h-32 mt-6"
         style={{ border: "2px solid white" }}
@@ -89,20 +86,11 @@ function ImageUpload(): React.JSX.Element {
           onChange={handleChange}
           id="image"
         />
-
         <button
           className="w-32 ml-5 text-lg"
           style={{ border: "2px solid green" }}
-          onClick={
-            photo === null
-              ? () => {
-                  handleClick(true);
-                }
-              : () => {
-                  handleClick(false);
-                }
-          }>
-          {photo === null ? buttonName : "Upload"}
+          onClick={() => handleClick(!photo)}>
+          {!photo ? buttonName : "Upload"}
         </button>
       </div>
     </div>

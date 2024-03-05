@@ -3,10 +3,7 @@ import { videoType } from "@/types";
 const VIDEO_API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 const client = createClient(VIDEO_API_KEY!);
 
-async function fetch_videos(
-  query = "Group of people working",
-  per_page = 1
-): Promise<videoType> {
+async function fetch_videos(query: string, per_page = 1): Promise<videoType> {
   const { videos } = (await client.videos.search({
     query,
     per_page,

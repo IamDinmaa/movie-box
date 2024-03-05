@@ -1,13 +1,11 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { BsBookmarkFill, BsEye } from "react-icons/bs";
-import { collection, addDoc } from "firebase/firestore";
+import { BsBookmarkFill } from "react-icons/bs";
 import { PiTelevisionFill } from "react-icons/pi";
 import { FaClapperboard } from "react-icons/fa6";
 import { BiSolidFilm } from "react-icons/bi";
 import { AiOutlineAppstore } from "react-icons/ai";
-import { useRouter } from "next/navigation";
 import { activeIconType } from "@/types";
 
 function Nav({
@@ -24,10 +22,6 @@ function Nav({
 
   const [btnState, setBtnState] = useState(activeIcon || state_prototype);
   const [img, setImg] = useState();
-  const router = useRouter();
-  function handleClick() {
-    router.push("/updateImage");
-  }
   function activeState(id: string) {
     setBtnState({ ...state_prototype, [id]: true });
   }
@@ -94,12 +88,12 @@ function Nav({
           </Link>
         </div>
       </div>
-      <div
-        onClick={handleClick}
+      <Link
+        href="/updateImage?type=0"
         className="w-8 h-8  ml-8 mr-2  rounded-full lg:ml-0 lg:mr-0 lg:mb-2 lg:mt-80 overflow-hidden "
         style={{ border: "2px solid white" }}>
         <img src={img} alt="Profile picture" />
-      </div>
+      </Link>
     </div>
   );
 }

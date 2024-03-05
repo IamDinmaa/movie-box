@@ -13,7 +13,7 @@ function MovieCarousel({
 }) {
   const router = useRouter();
   function handleClick(query: string | null) {
-    router.push(`/movieDetails?query=${query}`);
+    router.push(`/movieDetails?q=${query}`);
   }
 
   return (

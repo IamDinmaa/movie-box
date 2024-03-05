@@ -1,6 +1,5 @@
 "use client";
 import { Photo } from "pexels";
-import { useState } from "react";
 import { BiSolidFilm } from "react-icons/bi";
 import { BsBookmarkFill } from "react-icons/bs";
 import { useRouter } from "next/navigation";
@@ -14,19 +13,18 @@ function MovieGrid({
 }): React.JSX.Element {
   const router = useRouter();
   function handleClick(query: string | null) {
-    router.push(`/movieDetails?query=${query}`);
+    router.push(`/movieDetails?q=${query}`);
   }
   return (
-    <div>
+    <div className="border-4 border-purple-600">
       {heading && <h2 className="ml-4">{heading}</h2>}
-
-      <div className="flex flex-wrap scrollable-container h-[auto]">
+      <div className="flex flex-wrap scrollable-container h-128 border-4 border-red-600">
         {photos &&
           photos.map((photo) => (
             <div
               id={String(photo.id)}
               onClick={() => handleClick(photo.alt)}
-              className=" ml-4 mr-2  text-slate-100 w-40  lg:w-64 rounded-lg mb-2">
+              className=" ml-4 mr-2  text-slate-100 w-40  lg:w-64 rounded-lg mb-2 border-4 border-green-600">
               <div className="relative   ">
                 <img
                   src={photo.src.large}

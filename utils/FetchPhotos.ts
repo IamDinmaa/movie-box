@@ -8,7 +8,6 @@ async function fetch_photos(query = "Nature", per_page = 10): Promise<Photo[]> {
     query,
     per_page,
   })) as PhotosWithTotalResults;
-  console.log(photos);
   return photos;
 }
 
