@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { collection, addDoc } from "firebase/firestore";
 import app, { db } from "@/utils/Firebase";
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import { userDetail } from "@/types";
 
 const storage = getStorage(app);

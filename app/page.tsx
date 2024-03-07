@@ -53,7 +53,7 @@ export default function Home(): React.JSX.Element {
   return !authenticated ? (
     <></>
   ) : (
-    <div className="mb-56">
+    <div>
       <Scaffold activeIcon={state_prototype} activateSearch={handle_search}>
         {searchInitiated ? (
           data.length === 0 ? (
@@ -64,7 +64,7 @@ export default function Home(): React.JSX.Element {
         ) : (
           <>
             <MovieCarousel heading={"Trending"} photos={carouselPhotos} />
-            <div className="mb-36 border-4 border-yellow-600">
+            <div>
               <MovieGrid heading={"Recommended For You"} photos={gridPhotos} />
             </div>
           </>

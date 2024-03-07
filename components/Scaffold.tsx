@@ -9,7 +9,7 @@ export default function Scaffold({
   activateSearch,
 }: scaffoldType): React.JSX.Element {
   return (
-    <div className="grid grid-rows-[7%_90%] lg:grid-cols-[7%_90%] gap-2">
+    <div className="grid grid-rows-[7%_90%] lg:grid-cols-[7%_90%] gap-8">
       <div>
         <Nav activeIcon={activeIcon} />
       </div>
